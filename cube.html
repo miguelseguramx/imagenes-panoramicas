@@ -1,0 +1,77 @@
+<html>
+	<head>
+		<title>My first 3D Render | Miguel Segura Mx </title>
+		<style>
+			body {
+        margin: 0
+      }
+      /* ¿Por que canvas? Por que el renderizador crea una etiqueta canvas*/
+			canvas {
+        display: block
+      }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r99/three.min.js"></script>
+		<script>
+      // NEcesitamos renderizar un escena con la vista de una camara
+      const scene = new THREE.Scene() //Creamos la escena
+
+      // Aqui creamos una camara, las hay de muchos tipos pero por ahora usaremos PerspectiveCamera
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000 )
+      // El primer valor que recive es nuestro angulo de vision
+
+      // El segundo valor es la relacion entre el ancho y el alto de la imagen, solemos verlo como 16:9 0 4:3
+      // en este y la mayoria de los casos queremos usar la relacion por defecto de nuestro navegador
+
+      // Al siguiente valor se le conoce como near,
+      // nos indica que los puntos que esten en una posicion menor a ese valor no seran renderizados
+
+      // Al siguiente valor se le conoce como far,
+      // nos indica que los puntos que esten en una posicion mayor a ese valor no seran renderizados
+
+      const renderer = new THREE.WebGLRenderer()
+      // Usa Web Graphics Library, una api del dom para renderizar graficos interactivos en 2D, 3D
+
+      renderer.setSize( window.innerWidth, window.innerHeight )
+      document.body.appendChild( renderer.domElement )
+      // En esta parte agregamos el remnderizador al HTML,
+      // por detro utiliza una etiqueta canvas para mostrar la escena
+
+      const geometry = new THREE.BoxGeometry()
+      // Para crear nuestro cubo utilizamos BoxGeometri, este es un objeto
+      // que tiene todo los vertices y el relleno o las caras del cubo.
+
+      const material = new THREE.MeshBasicMaterial( { color: 0x08ff00 } )
+      // Necesitamos un material para colorear o rellenar nuestro objeto
+
+      const cube = new THREE.Mesh( geometry, material )
+      // EL mesh o la mascara es un objeto que toma una geometria y le aplica un material
+
+      scene.add(cube)
+      // Finalmente añadimos a la escena nuestro objeto
+
+      camera.position.z = 3
+      // scene.add() agrega la camara por defecto en la posicion 0, 0, 0,
+      // necesitamos cambiarla para observar el objeto desde una mejor posicion
+
+      // Hasta aqui no tenemos nada por que aun no le hemos dicho al
+      // renderizador que escena y con que camara debe de renderizar
+      const animate = function () {
+        requestAnimationFrame(animate)
+        // Esto creará un loop que hará que el renderizador dibuje
+        // la escena cada vez que se actualice la pantalla, esta funcion tiene la ventaja
+        // de que pausa la animacion cada que cambias de pestaña en el navegador para
+        // no desperdiciar recursos del sistema
+
+        // Hasta hora tenemos un cubo en la pantalla, podemos animarlo para observar todas sus caras
+        cube.rotation.x += 0.01
+        cube.rotation.y += 0.01
+        renderer.render( scene, camera )
+      }
+
+      animate()
+		</script>
+	</body>
+</html>
