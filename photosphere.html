@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.css"/>
+  <style>
+    /* the viewer container must have a defined size */
+    body{
+      margin: 0;
+    }
+    #container {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+<script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uevent@2/browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4/dist/photo-sphere-viewer.min.js"></script>
+<script>
+  const $Container = document.querySelector('#container')
+
+  const viewer = new PhotoSphereViewer.Viewer({
+    container: $Container,
+    panorama: './atardecer.jpg'
+  })
+
+</script>
+</body>
+</html>
